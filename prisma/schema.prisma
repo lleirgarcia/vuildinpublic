@@ -133,6 +133,14 @@ model SocialStat {
   startDate      DateTime // Fecha de inicio para calcular días transcurridos
 }
 
+model SocialStatSnapshot {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  totalFollowers Int     // Snapshot del número de seguidores en este momento
+  
+  @@index([createdAt])
+}
+
 // NextAuth models
 model Account {
   id                String  @id @default(cuid())

@@ -1,0 +1,839 @@
+================================================================================
+                    FUNCIONALIDADES DE VUILDING IN PUBLIC
+                    Documentación completa paso a paso
+================================================================================
+
+FECHA: Diciembre 2024
+VERSIÓN: MVP - Versión inicial funcional
+
+================================================================================
+1. CONCEPTO Y PROPÓSITO
+================================================================================
+
+"vuilding in public" es una plataforma web que transforma comentarios y feedback 
+de redes sociales (YouTube, Instagram, TikTok) en proyectos de software reales.
+
+CARACTERÍSTICAS PRINCIPALES:
+- Construcción de software basado en feedback de la comunidad
+- Sistema de votación para decidir qué proyectos se desarrollan
+- Seguimiento en tiempo real del estado de cada proyecto
+- Transparencia total del proceso de desarrollo
+- Enfoque en proyectos pequeños y ágiles, no grandes aplicaciones
+
+================================================================================
+2. PÁGINA PRINCIPAL (HOME - /)
+================================================================================
+
+2.1. SECCIÓN DE INTRODUCCIÓN
+----------------------------
+- Explicación de qué es "vuild in public"
+- Descripción del proceso: construcción de software basado en feedback de redes 
+  sociales usando IA
+- Enfoque en proyectos pequeños, no grandes aplicaciones
+
+2.2. SECCIÓN "¿QUIERES FORMAR PARTE?"
+-------------------------------------
+- Instrucciones para participar
+- Enlace al último video de TikTok
+- Formatos de comentarios disponibles:
+  * IDEA: Para proponer nuevas funcionalidades o proyectos
+  * MEJORA: Para sugerir mejoras (dejarlo en el video relacionado)
+  * BUG: Para reportar errores o problemas
+  * RETO: Para proponer desafíos técnicos o creativos
+- Ejemplo de uso de los formatos
+
+2.3. SECCIÓN "EN CONSTRUCCIÓN"
+------------------------------
+- Muestra proyectos actualmente en desarrollo
+- Estados incluidos:
+  * Brainstorming (ideación)
+  * In Progress (en desarrollo)
+  * Testing (en pruebas)
+- Cada proyecto muestra:
+  * Número de proyecto
+  * Título
+  * Usuario que lo propuso (@tiktokHandle)
+  * Estado actual con colores personalizados
+  * Enlace a la página de detalle
+
+2.4. SECCIÓN "PREPARADOS"
+--------------------------
+- Proyectos que están listos para ser lanzados
+- Estado: "prepared"
+- Misma información que proyectos en construcción
+
+2.5. SECCIÓN "VOTAR PROYECTO"
+------------------------------
+- Lista de proyectos propuestos para votación (polls activos)
+- Cada proyecto muestra:
+  * Título
+  * Usuario que lo propuso
+  * Número de votos actuales
+  * Botón para votar
+- Los usuarios pueden votar por los proyectos que quieren ver desarrollados
+- Los votos se registran y se actualizan en tiempo real
+
+2.6. SIDEBAR - "TOP 10 INTERACCIONES"
+--------------------------------------
+- Ranking de los 10 usuarios más activos
+- Cálculo basado en:
+  * Comentarios realizados (cada comentario = 1 interacción)
+  * Likes en mensajes (cada like = 1 interacción)
+- Muestra:
+  * Posición en el ranking
+  * Handle de TikTok del usuario
+  * Número total de interacciones
+
+2.7. SIDEBAR - "TERMINADOS"
+----------------------------
+- Lista de proyectos completados y lanzados
+- Estado: "shipped"
+- Muestra:
+  * Número de proyecto
+  * Título
+  * Usuario que lo propuso
+  * Estado con badge visual
+  * Enlace a la página de detalle
+
+================================================================================
+3. PÁGINA DE DETALLE DE PROYECTO (/projects/[id])
+================================================================================
+
+3.1. HEADER DEL PROYECTO
+------------------------
+- Número del proyecto (#X)
+- Estado actual con badge de color personalizado
+- Título del proyecto
+
+3.2. SECCIÓN DE CRÉDITOS
+-------------------------
+- Usuario que propuso el proyecto (@tiktokHandle)
+- Comentario original que dio origen al proyecto
+- Enlace al video de TikTok donde se hizo el comentario (si está disponible)
+
+3.3. REQUISITOS TÉCNICOS (MINI-SPEC)
+------------------------------------
+- Objetivo: Descripción del propósito del proyecto
+- Alcance: Qué se incluirá en el proyecto
+- Criterios de aceptación: Lista de requisitos que debe cumplir
+- Fuera de alcance: Qué NO se incluirá en el proyecto
+- Nota: Actualmente el generador de specs es mock, pero está preparado para 
+  integrar un LLM real
+
+3.4. VIDEOS RELACIONADOS
+-------------------------
+- Videos embebidos relacionados con el proyecto
+- Soporte para:
+  * YouTube
+  * TikTok
+  * Instagram
+- Cada video muestra:
+  * Título
+  * Descripción (opcional)
+  * Embed funcional del video
+
+3.5. TARJETA SHAREABLE
+----------------------
+- Visualización grande del proyecto para compartir en redes sociales
+- Incluye:
+  * Número y título del proyecto
+  * Estado actual
+  * Usuario que lo propuso
+  * Información clave del proyecto
+- Funcionalidades:
+  * Botón "Copiar texto": Copia un resumen del proyecto al portapapeles
+  * Botón "Exportar PNG": Exporta la tarjeta como imagen PNG para compartir
+
+================================================================================
+4. PÁGINA BOARD (/board)
+================================================================================
+
+Vista tipo Kanban/Trello que organiza proyectos visualmente en columnas:
+
+4.1. COLUMNA "EN VOTACIÓN"
+---------------------------
+- Proyectos propuestos que están esperando votos
+- Muestra polls activos con:
+  * Título del proyecto
+  * Usuario que lo propuso
+  * Número de votos actuales
+  * Botón para votar
+
+4.2. COLUMNA "BRAINSTORMING"
+-----------------------------
+- Proyectos en fase de ideación
+- Estado: brainstorming
+
+4.3. COLUMNA "IN PROGRESS"
+---------------------------
+- Proyectos en desarrollo activo
+- Estado: in progress
+
+4.4. COLUMNA "TESTING"
+----------------------
+- Proyectos en fase de pruebas
+- Estado: testing
+
+4.5. COLUMNA "SHIPPED"
+-----------------------
+- Proyectos completados y lanzados
+- Estado: shipped
+
+Cada tarjeta en el board muestra:
+- Número del proyecto
+- Título
+- Usuario que lo propuso
+- Estado con badge visual
+- Enlace a la página de detalle
+
+================================================================================
+5. PÁGINA INTERACCIONES (/interacciones)
+================================================================================
+
+Rankings de participación en la comunidad:
+
+5.1. TOP INTERACCIONES
+----------------------
+- Ranking general de usuarios más activos
+- Cálculo: comentarios + likes en mensajes
+- Muestra posición, handle y número total de interacciones
+
+5.2. TOP COMENTARIOS EN TIKTOK
+-------------------------------
+- Ranking de usuarios que más comentarios han dejado
+- Basado únicamente en comentarios capturados
+- Muestra posición, handle y número de comentarios
+
+5.3. TOP SEGUIMIENTO
+---------------------
+- Ranking de usuarios que más feedback dan
+- Cálculo: mensajes sobre proyectos + votos en polls
+- Muestra posición, handle y número de acciones de seguimiento
+
+================================================================================
+6. INBOX - GESTIÓN DE COMENTARIOS (/inbox)
+================================================================================
+
+Backoffice para gestionar comentarios capturados de redes sociales:
+
+6.1. FORMULARIO DE AGREGAR COMENTARIO
+--------------------------------------
+- Campos:
+  * TikTok Handle: Usuario que hizo el comentario
+  * Texto del comentario: Contenido completo
+  * URL del video: Enlace al video donde se hizo el comentario (opcional)
+- Botón para guardar el comentario
+
+6.2. LISTA DE COMENTARIOS GUARDADOS
+------------------------------------
+- Muestra todos los comentarios guardados
+- Ordenados por fecha de creación (más recientes primero)
+- Cada comentario muestra:
+  * Handle de TikTok del usuario
+  * Texto completo del comentario
+  * Enlace al video (si está disponible)
+  * Badge "Candidato de hoy" (si está marcado)
+
+6.3. ACCIONES DISPONIBLES POR COMENTARIO
+-----------------------------------------
+- Marcar/Quitar candidato de hoy:
+  * Permite marcar comentarios como candidatos para el día
+  * Útil para priorizar comentarios a procesar
+  
+- Generar spec:
+  * Genera un mini-spec (mock por ahora) con:
+    - Objetivo
+    - Alcance
+    - Criterios de aceptación
+    - Fuera de alcance
+  * El spec se guarda en el comentario
+  
+- Crear proyecto desde comentario:
+  * Convierte un comentario en un proyecto
+  * Asigna un número de proyecto único
+  * Estado inicial: brainstorming
+  * Crea la relación entre comentario y proyecto
+
+================================================================================
+7. BACKOFFICE - ÁREA DE ADMINISTRACIÓN (/lleirgarcia)
+================================================================================
+
+Área protegida para administradores con autenticación:
+
+7.1. DASHBOARD PRINCIPAL (/lleirgarcia/dashboard)
+--------------------------------------------------
+- Panel de control con acceso rápido a:
+  * Gestión de proyectos
+  * Gestión de comentarios
+  * Ejecución de scripts
+- Enlaces a las diferentes secciones del backoffice
+
+7.2. GESTIÓN DE PROYECTOS (/lleirgarcia/projects)
+--------------------------------------------------
+- Lista de todos los proyectos
+- Funcionalidades:
+  * Ver detalles de cada proyecto
+  * Editar información del proyecto
+  * Cambiar estado del proyecto
+  * Agregar videos relacionados
+  * Editar changelog
+  * Actualizar spec
+
+7.3. GESTIÓN DE COMENTARIOS (/lleirgarcia/comments)
+----------------------------------------------------
+- Lista de todos los comentarios capturados
+- Funcionalidades similares al Inbox público
+- Acceso a todas las acciones de comentarios
+
+7.4. EJECUCIÓN DE SCRIPTS (/lleirgarcia/scripts)
+-------------------------------------------------
+- Interfaz para ejecutar scripts de recolección
+- Scripts disponibles:
+  * Recoger comentarios de YouTube
+  * Recoger comentarios de TikTok
+  * Otros scripts de automatización
+
+================================================================================
+8. SISTEMA DE AUTENTICACIÓN
+================================================================================
+
+8.1. PROVEEDOR: Google OAuth
+-----------------------------
+- Autenticación mediante Google
+- Configuración mediante NextAuth.js
+- Variables de entorno requeridas:
+  * GOOGLE_CLIENT_ID
+  * GOOGLE_CLIENT_SECRET
+  * NEXTAUTH_URL
+  * NEXTAUTH_SECRET
+
+8.2. GESTIÓN DE SESIONES
+-------------------------
+- Estrategia: Database sessions (sesiones en base de datos)
+- Duración: 30 días
+- Almacenamiento en tabla Session de Prisma
+
+8.3. USUARIOS
+-------------
+- Creación automática de usuarios al iniciar sesión
+- Vinculación de cuentas de Google
+- Información almacenada:
+  * Email
+  * Nombre
+  * Avatar
+  * Handles de redes sociales (opcional)
+
+8.4. AUTENTICACIÓN DE ADMINISTRADORES
+--------------------------------------
+- Sistema de autenticación para área de administración
+- Protección de rutas /lleirgarcia/*
+- Verificación de permisos de administrador
+
+================================================================================
+9. COMPONENTES REUTILIZABLES
+================================================================================
+
+9.1. ProjectCard
+-----------------
+- Tarjeta unificada para mostrar proyectos
+- Muestra: número, título, usuario, estado
+- Opciones:
+  * Mostrar/ocultar estado
+  * Mostrar botón de voto
+  * Mostrar contador de votos
+
+9.2. KanbanBoard
+-----------------
+- Vista tipo Trello para organización visual
+- Columnas dinámicas basadas en estados
+- Drag and drop (preparado para implementación futura)
+
+9.3. SocialStats
+-----------------
+- Estadísticas de redes sociales en el header
+- Muestra:
+  * Total de seguidores
+  * Crecimiento mensual
+  * Crecimiento semanal
+  * Días transcurridos desde inicio
+- Actualmente con datos estáticos (preparado para integración real)
+
+9.4. VideoEmbed
+---------------
+- Embed inteligente para videos
+- Soporte para:
+  * YouTube
+  * TikTok
+  * Instagram
+- Detección automática del tipo de video por URL
+
+9.5. PollSection
+----------------
+- Sección de votaciones
+- Muestra polls activos
+- Botón de voto funcional
+- Actualización en tiempo real
+
+9.6. AuthButton
+---------------
+- Botón de autenticación en el header
+- Muestra estado de sesión
+- Opciones: Iniciar sesión / Cerrar sesión
+
+================================================================================
+10. API ENDPOINTS
+================================================================================
+
+10.1. COMENTARIOS
+-----------------
+- GET /api/comments
+  * Lista todos los comentarios
+  * Filtros opcionales disponibles
+  
+- POST /api/comments
+  * Crea un nuevo comentario
+  * Requiere: tiktokHandle, commentText, videoUrl (opcional)
+  
+- GET /api/comments/[id]
+  * Obtiene un comentario específico
+  
+- POST /api/comments/[id]/toggle-candidate
+  * Marca/desmarca un comentario como candidato de hoy
+  
+- POST /api/comments/[id]/generate-spec
+  * Genera un spec para un comentario (mock actualmente)
+  
+- POST /api/comments/[id]/create-project
+  * Crea un proyecto desde un comentario
+
+10.2. PROYECTOS
+---------------
+- GET /api/projects
+  * Lista todos los proyectos
+  * Filtros opcionales por estado
+  
+- GET /api/projects/[id]
+  * Obtiene un proyecto específico con todas sus relaciones
+  
+- POST /api/projects/[id]
+  * Actualiza un proyecto
+  * Permite cambiar: título, estado, changelog, spec
+  
+- POST /api/projects/[id]/videos
+  * Agrega un video a un proyecto
+  
+- DELETE /api/projects/[id]/videos/[videoId]
+  * Elimina un video de un proyecto
+
+10.3. VOTACIONES (POLLS)
+-------------------------
+- GET /api/polls
+  * Lista polls activos
+  * Incluye conteo de votos
+  
+- POST /api/polls/vote
+  * Registra un voto en un poll
+  * Requiere: pollId, tiktokHandle (opcional si hay sesión)
+
+10.4. USUARIOS
+--------------
+- GET /api/users/top
+  * Obtiene top 10 usuarios por interacciones
+  * Cálculo: comentarios + likes en mensajes
+
+10.5. HOME
+-----------
+- GET /api/home
+  * Endpoint consolidado con todos los datos para la página principal
+  * Incluye: proyectos, polls, top users
+
+10.6. AUTENTICACIÓN
+-------------------
+- GET/POST /api/auth/[...nextauth]
+  * Maneja toda la autenticación NextAuth
+  * Callbacks de Google OAuth
+  * Gestión de sesiones
+
+10.7. ADMINISTRACIÓN
+--------------------
+- POST /api/admin/auth
+  * Autenticación de administradores
+  
+- GET /api/admin/projects
+  * Lista proyectos (admin)
+  
+- GET/POST /api/admin/projects/[id]
+  * Obtiene/actualiza proyecto (admin)
+  
+- POST /api/admin/scripts/[type]
+  * Ejecuta scripts de recolección
+
+================================================================================
+11. BASE DE DATOS - MODELO DE DATOS
+================================================================================
+
+11.1. ENTIDADES PRINCIPALES
+----------------------------
+
+User:
+- Información de usuarios autenticados
+- Campos: id, email, name, avatar, handles de redes sociales
+- Relaciones: comments, messages, votes, accounts, sessions
+
+Comment:
+- Comentarios capturados de redes sociales
+- Campos: tiktokHandle, commentText, videoUrl, isCandidateToday, spec
+- Relaciones: user, project, poll
+
+Project:
+- Proyectos creados desde comentarios
+- Campos: number (único), title, estadoId, commentId, changelog, spec
+- Relaciones: estado, comment, messages, videos
+
+Estado:
+- Estados de proyecto con configuración visual
+- Campos: name, label, color, bgColor, borderColor
+- Valores: brainstorming, in progress, testing, shipped, prepared
+- Relaciones: projects
+
+Message:
+- Mensajes/comentarios sobre proyectos
+- Campos: tiktokHandle, messageText, likes
+- Relaciones: project, user
+
+Poll:
+- Encuestas/votaciones para decidir próximos proyectos
+- Campos: title, description, isActive
+- Relaciones: comment, votes
+
+Vote:
+- Votos de usuarios en polls
+- Campos: pollId, tiktokHandle
+- Relaciones: poll, user
+
+Video:
+- Videos relacionados con proyectos
+- Campos: title, url, description
+- Relaciones: project
+
+SocialStat:
+- Estadísticas de redes sociales
+- Campos: totalFollowers, monthlyGrowth, weeklyGrowth, startDate
+
+SocialStatSnapshot:
+- Snapshots históricos de estadísticas
+- Campos: totalFollowers, createdAt
+
+Account (NextAuth):
+- Cuentas vinculadas de proveedores OAuth
+- Relaciones: user
+
+Session (NextAuth):
+- Sesiones de usuarios autenticados
+- Relaciones: user
+
+VerificationToken (NextAuth):
+- Tokens de verificación
+
+11.2. RELACIONES CLAVE
+----------------------
+- Un Comment puede generar un Project o un Poll
+- Un Project tiene un Estado y múltiples Messages y Videos
+- Un Poll tiene múltiples Votes
+- Los Users pueden estar asociados a Comments, Messages y Votes
+
+================================================================================
+12. DISEÑO Y ESTILO
+================================================================================
+
+12.1. TEMA VISUAL
+-----------------
+- Estilo: Minimalista, "clean tech"
+- Colores: Tonos oscuros (negro, grises oscuros)
+- Tipografía: Sans-serif, tamaños grandes para elementos importantes
+- Componentes: Tarjetas con bordes suaves, espaciado generoso
+
+12.2. COLORES DE ESTADOS
+-------------------------
+- Cada estado tiene colores personalizados:
+  * Color de texto
+  * Color de fondo
+  * Color de borde
+- Los badges de estado usan estos colores para identificación visual
+
+12.3. RESPONSIVE
+----------------
+- Diseño responsive para móviles y tablets
+- Grid adaptativo en la página principal
+- Sidebar sticky en desktop, normal en móvil
+
+================================================================================
+13. FLUJO DE TRABAJO COMPLETO
+================================================================================
+
+13.1. CAPTURA DE COMENTARIOS
+-----------------------------
+1. Usuario deja comentario en TikTok/YouTube/Instagram
+2. Administrador copia el comentario manualmente
+3. Se agrega en /inbox con:
+   - Handle de TikTok
+   - Texto del comentario
+   - URL del video (opcional)
+
+13.2. PROCESAMIENTO DE COMENTARIOS
+-----------------------------------
+1. Administrador marca comentario como "candidato de hoy" (opcional)
+2. Se genera un spec usando el botón "Generar spec"
+   - Actualmente es mock, pero preparado para LLM real
+   - El spec incluye: objetivo, alcance, criterios, fuera de alcance
+3. El spec se guarda en el comentario
+
+13.3. CREACIÓN DE POLL O PROYECTO
+----------------------------------
+Opción A - Crear Poll:
+1. El comentario se convierte en un poll
+2. Aparece en la sección "Votar proyecto" de la home
+3. La comunidad vota por el proyecto
+4. Si gana, se crea el proyecto
+
+Opción B - Crear Proyecto Directamente:
+1. Se usa el botón "Crear proyecto" en el comentario
+2. Se asigna un número de proyecto único
+3. Estado inicial: brainstorming
+4. El proyecto aparece en "En construcción"
+
+13.4. DESARROLLO DEL PROYECTO
+------------------------------
+1. Estado: Brainstorming
+   - Proyecto en fase de ideación
+   - Aparece en "En construcción"
+   
+2. Estado: In Progress
+   - Proyecto en desarrollo activo
+   - Aparece en "En construcción"
+   
+3. Estado: Testing
+   - Proyecto en fase de pruebas
+   - Aparece en "En construcción"
+   
+4. Estado: Prepared
+   - Proyecto listo para lanzar
+   - Aparece en "Preparados"
+   
+5. Estado: Shipped
+   - Proyecto completado y lanzado
+   - Aparece en "Terminados"
+
+13.5. SEGUIMIENTO Y FEEDBACK
+-----------------------------
+1. La comunidad puede ver el progreso en tiempo real
+2. Los usuarios pueden dejar mensajes sobre proyectos
+3. Los mensajes tienen sistema de likes
+4. Se pueden agregar videos relacionados al proyecto
+5. Las interacciones se cuentan para el ranking
+
+================================================================================
+14. TECNOLOGÍAS UTILIZADAS
+================================================================================
+
+14.1. FRONTEND
+--------------
+- Next.js 14 (App Router)
+- React 18
+- TypeScript
+- Tailwind CSS
+- html-to-image (para exportar PNG)
+
+14.2. BACKEND
+-------------
+- Next.js API Routes
+- NextAuth.js (autenticación)
+- Prisma ORM
+- PostgreSQL (base de datos)
+
+14.3. INFRAESTRUCTURA
+---------------------
+- Docker & Docker Compose (PostgreSQL)
+- Node.js 18+
+
+14.4. HERRAMIENTAS DE DESARROLLO
+---------------------------------
+- TypeScript para tipado estático
+- Prisma Studio para gestión de BD
+- Scripts de migración de base de datos
+
+================================================================================
+15. FUNCIONALIDADES ESPECIALES
+================================================================================
+
+15.1. EXPORTACIÓN DE TARJETAS
+------------------------------
+- Exportación de tarjetas de proyecto como PNG
+- Útil para compartir en redes sociales
+- Incluye toda la información visual del proyecto
+
+15.2. COPIA DE TEXTO
+---------------------
+- Botón para copiar resumen del proyecto al portapapeles
+- Formato optimizado para compartir
+
+15.3. EMBED DE VIDEOS
+---------------------
+- Detección automática del tipo de video
+- Soporte para YouTube, TikTok, Instagram
+- Embed funcional en la página de detalle
+
+15.4. SISTEMA DE VOTACIÓN
+-------------------------
+- Votación anónima (por tiktokHandle)
+- Conteo en tiempo real
+- Actualización automática de la UI
+
+15.5. RANKINGS DINÁMICOS
+------------------------
+- Cálculo automático de interacciones
+- Rankings actualizados en tiempo real
+- Múltiples métricas: interacciones, comentarios, seguimiento
+
+================================================================================
+16. LIMITACIONES ACTUALES (MVP)
+================================================================================
+
+16.1. CAPTURA MANUAL
+--------------------
+- Los comentarios se agregan manualmente (copy/paste)
+- No hay scraping automático de redes sociales
+- Preparado para integración futura
+
+16.2. SPECS MOCK
+----------------
+- El generador de specs es mock
+- Estructura preparada para integrar LLM real
+- El spec se genera pero no usa IA actualmente
+
+16.3. ESTADÍSTICAS ESTÁTICAS
+-----------------------------
+- Las estadísticas de redes sociales son estáticas
+- Estructura preparada para integración con APIs reales
+
+16.4. AUTENTICACIÓN BÁSICA
+---------------------------
+- Sistema de autenticación funcional pero básico
+- Solo Google OAuth implementado
+- Preparado para expandir con más proveedores
+
+================================================================================
+17. PREPARADO PARA FUTURAS MEJORAS
+================================================================================
+
+17.1. INTEGRACIÓN CON LLM
+--------------------------
+- Estructura lista para integrar generación de specs con IA
+- Endpoint preparado: /api/comments/[id]/generate-spec
+
+17.2. SCRAPING AUTOMÁTICO
+--------------------------
+- Estructura para scripts de recolección
+- Endpoints de administración preparados
+- Interfaz para ejecutar scripts
+
+17.3. NOTIFICACIONES
+--------------------
+- Estructura de base de datos preparada
+- Sistema de usuarios implementado
+- Listo para agregar notificaciones
+
+17.4. COMENTARIOS EN TIEMPO REAL
+---------------------------------
+- Sistema de mensajes implementado
+- Estructura lista para WebSockets o Server-Sent Events
+
+================================================================================
+18. NAVEGACIÓN Y ESTRUCTURA
+================================================================================
+
+18.1. HEADER
+------------
+- Logo y título "vuilding in public"
+- Navegación:
+  * Home (/)
+  * Board (/board)
+  * Interacciones (/interacciones)
+  * Debug Auth (solo en desarrollo)
+- Botón de autenticación
+- Estadísticas de redes sociales
+
+18.2. FOOTER
+------------
+- Información de copyright
+- Dominio: vuildinginpublic.com
+
+18.3. RUTAS PROTEGIDAS
+----------------------
+- /lleirgarcia/* - Requiere autenticación de administrador
+- Redirección automática si no está autenticado
+
+================================================================================
+19. CONFIGURACIÓN Y VARIABLES DE ENTORNO
+================================================================================
+
+Variables requeridas:
+- DATABASE_URL: URL de conexión a PostgreSQL
+- GOOGLE_CLIENT_ID: ID de cliente de Google OAuth
+- GOOGLE_CLIENT_SECRET: Secret de cliente de Google OAuth
+- NEXTAUTH_URL: URL base de la aplicación
+- NEXTAUTH_SECRET: Secret para NextAuth
+
+Variables opcionales:
+- NEXT_PUBLIC_YOUTUBE_URL: URL de YouTube
+- NEXT_PUBLIC_INSTAGRAM_URL: URL de Instagram
+- NEXT_PUBLIC_TIKTOK_URL: URL de TikTok
+- NEXT_PUBLIC_LAST_TIKTOK_VIDEO_URL: URL del último video de TikTok
+
+================================================================================
+20. SCRIPTS Y COMANDOS DISPONIBLES
+================================================================================
+
+Desarrollo:
+- npm run dev - Inicia servidor de desarrollo
+- npm run build - Construye para producción
+- npm run start - Inicia servidor de producción
+- npm run lint - Ejecuta linter
+
+Base de datos:
+- npm run db:push - Aplica cambios del schema
+- npm run db:migrate - Crea migración
+- npm run db:seed - Pobla BD con datos de ejemplo
+- npm run db:studio - Abre Prisma Studio
+- npm run db:clear-votes - Limpia votos
+
+Docker:
+- npm run docker:up - Inicia PostgreSQL
+- npm run docker:down - Detiene PostgreSQL
+- npm run docker:logs - Ver logs de PostgreSQL
+
+================================================================================
+RESUMEN EJECUTIVO
+================================================================================
+
+"vuilding in public" es una plataforma completa y funcional que permite:
+
+1. CAPTURAR comentarios de redes sociales manualmente
+2. PROCESAR comentarios y generar specs (mock actualmente)
+3. VOTAR por proyectos propuestos por la comunidad
+4. CREAR proyectos desde comentarios o polls ganadores
+5. SEGUIR el progreso de proyectos en tiempo real
+6. INTERACTUAR con proyectos mediante mensajes y likes
+7. VISUALIZAR proyectos en vista Kanban/Trello
+8. EXPORTAR tarjetas de proyectos para compartir
+9. VER rankings de usuarios más activos
+10. ADMINISTRAR todo el sistema desde un backoffice protegido
+
+La plataforma está diseñada para ser transparente, comunitaria y enfocada en 
+proyectos pequeños y ágiles. Está preparada para futuras mejoras como integración 
+con LLM, scraping automático y notificaciones en tiempo real.
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================
+

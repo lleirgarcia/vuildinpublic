@@ -14,6 +14,7 @@
     "db:studio": "prisma studio",
     "db:migrate": "prisma migrate dev",
     "db:clear-votes": "tsx prisma/clear-votes.ts",
+    "update:social-stats": "tsx scripts/update-social-stats.ts",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres",

@@ -1,11 +1,18 @@
 import { config } from '@/lib/config';
+import { prisma } from '@/lib/prisma';
 
-export function SocialStats() {
-  // Valores estáticos para @vuildinginpublic
-  const totalFollowers = 125000;
-  const monthlyGrowth = 12.5; // 12.5%
-  const weeklyGrowth = 3.2; // 3.2%
-  const startDate = new Date('2024-01-01'); // Fecha de inicio estática
+export async function SocialStats() {
+  // Obtener estadísticas desde la base de datos
+  // @ts-expect-error - socialStat existe en Prisma Client pero TypeScript no lo reconoce aún
+  const socialStat = await prisma.socialStat.findFirst({
+    orderBy: { updatedAt: 'desc' },
+  });
+
+  // Valores por defecto si no hay datos en la BD
+  const totalFollowers = socialStat?.totalFollowers ?? 125000;
+  const monthlyGrowth = socialStat?.monthlyGrowth ?? 12.5;
+  const weeklyGrowth = socialStat?.weeklyGrowth ?? 3.2;
+  const startDate = socialStat?.startDate ?? new Date('2024-01-01');
   
   // Calcular días transcurridos desde la fecha de inicio
   const today = new Date();
