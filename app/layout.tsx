@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { SocialStats } from "@/components/SocialStats";
-// import { AuthButton } from "@/components/AuthButton"; // Omitido temporalmente
+import { AuthButton } from "@/components/AuthButton";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -47,7 +47,12 @@ export default function RootLayout({
                   <Link href="/interacciones" className="text-sm text-[#a3a3a3] hover:text-[#e5e5e5] transition-colors">
                     Interacciones
                   </Link>
-                  {/* <AuthButton /> Omitido temporalmente */}
+                  {process.env.NODE_ENV === 'development' && (
+                    <Link href="/debug-auth" className="text-xs text-[#737373] hover:text-[#a3a3a3] transition-colors">
+                      🔐 Debug
+                    </Link>
+                  )}
+                  <AuthButton />
                 </nav>
               </div>
             </div>

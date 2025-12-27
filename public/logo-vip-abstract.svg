@@ -1,0 +1,79 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo negro -->
+  <rect width="512" height="512" fill="#000000" rx="64"/>
+  
+  <defs>
+    <!-- Gradiente moderno -->
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#e5e5e5;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#a3a3a3;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <!-- Gradiente secundario -->
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a3a3a3;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#404040;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <!-- Sombra suave -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Forma abstracta V - Dos líneas convergentes -->
+  <g transform="translate(100, 150)">
+    <!-- Línea izquierda de la V -->
+    <line x1="0" y1="0" x2="60" y2="120" stroke="url(#grad1)" stroke-width="24" stroke-linecap="round" filter="url(#glow)"/>
+    <!-- Línea derecha de la V -->
+    <line x1="60" y1="120" x2="120" y2="0" stroke="url(#grad1)" stroke-width="24" stroke-linecap="round" filter="url(#glow)"/>
+    <!-- Punto de conexión -->
+    <circle cx="60" cy="120" r="12" fill="url(#grad1)" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Forma abstracta I - Línea vertical con acentos -->
+  <g transform="translate(256, 150)">
+    <!-- Línea vertical principal -->
+    <line x1="0" y1="0" x2="0" y2="120" stroke="url(#grad1)" stroke-width="28" stroke-linecap="round" filter="url(#glow)"/>
+    <!-- Acento superior -->
+    <line x1="-20" y1="10" x2="20" y2="10" stroke="url(#grad1)" stroke-width="16" stroke-linecap="round" filter="url(#glow)"/>
+    <!-- Acento inferior -->
+    <line x1="-20" y1="110" x2="20" y2="110" stroke="url(#grad1)" stroke-width="16" stroke-linecap="round" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Forma abstracta P - Círculo con línea -->
+  <g transform="translate(380, 150)">
+    <!-- Círculo superior (parte redondeada de la P) -->
+    <circle cx="0" cy="40" r="40" fill="none" stroke="url(#grad1)" stroke-width="24" filter="url(#glow)"/>
+    <!-- Línea vertical -->
+    <line x1="-40" y1="0" x2="-40" y2="120" stroke="url(#grad1)" stroke-width="24" stroke-linecap="round" filter="url(#glow)"/>
+    <!-- Línea horizontal que conecta -->
+    <line x1="-40" y1="0" x2="0" y2="0" stroke="url(#grad1)" stroke-width="24" stroke-linecap="round" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Líneas decorativas abstractas en la parte inferior -->
+  <g opacity="0.4">
+    <!-- Línea curva decorativa -->
+    <path d="M 80 380 Q 256 400, 432 380" stroke="url(#grad2)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Puntos decorativos -->
+    <circle cx="150" cy="390" r="3" fill="url(#grad2)"/>
+    <circle cx="256" cy="395" r="3" fill="url(#grad2)"/>
+    <circle cx="362" cy="390" r="3" fill="url(#grad2)"/>
+  </g>
+  
+  <!-- Elementos geométricos abstractos adicionales -->
+  <g opacity="0.2">
+    <!-- Triángulo pequeño -->
+    <polygon points="200,100 220,140 180,140" fill="url(#grad2)"/>
+    <!-- Círculo pequeño -->
+    <circle cx="312" cy="100" r="15" fill="url(#grad2)"/>
+    <!-- Cuadrado pequeño -->
+    <rect x="400" y="85" width="20" height="20" fill="url(#grad2)" rx="2"/>
+  </g>
+</svg>
+

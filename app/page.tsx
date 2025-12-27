@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { config } from '@/lib/config';
 import { ConstructionIcon } from '@/components/ConstructionIcon';
 import { ShippedIcon } from '@/components/ShippedIcon';
+import { PreparedIcon } from '@/components/PreparedIcon';
 import { PollSection } from '@/components/PollSection';
 import { ProjectCard } from '@/components/ProjectCard';
 
@@ -115,8 +116,8 @@ export default async function Home() {
               ¿Quieres formar parte?
             </h2>
             <div className="bg-[#0a0a0a] border border-[#262626] rounded-lg p-6 flex-1">
-              <p className="text-sm text-[#e5e5e5] leading-relaxed">
-                Para participar, necesitas dejar un comentario en el{' '}
+              <p className="text-sm text-[#e5e5e5] leading-relaxed mb-4">
+                Para participar, deja un comentario en el{' '}
                 <a 
                   href={config.lastTikTokVideoUrl} 
                   target="_blank" 
@@ -125,10 +126,28 @@ export default async function Home() {
                 >
                   último video de TikTok
                 </a>
-                . El comentario debe empezar por <span className="font-mono font-semibold text-white">{config.commentPrefix}</span> seguido de lo que te gustaría que construyamos.
+                . Usa uno de estos formatos:
               </p>
-              <p className="text-xs text-[#737373] mt-3 leading-relaxed">
-                Ejemplo: <span className="font-mono text-[#a3a3a3]">{config.commentPrefix} Una aplicación para gestionar mis tareas diarias</span>
+              <div className="space-y-3 text-xs">
+                <div>
+                  <span className="font-mono font-semibold text-white">IDEA:</span>
+                  <span className="text-[#a3a3a3] ml-2">Para proponer nuevas funcionalidades o proyectos</span>
+                </div>
+                <div>
+                  <span className="font-mono font-semibold text-white">MEJORA:</span>
+                  <span className="text-[#a3a3a3] ml-2">Para sugerir mejoras. Déjalo en el video relacionado al proyecto</span>
+                </div>
+                <div>
+                  <span className="font-mono font-semibold text-white">BUG:</span>
+                  <span className="text-[#a3a3a3] ml-2">Para reportar errores o problemas</span>
+                </div>
+                <div>
+                  <span className="font-mono font-semibold text-white">RETO:</span>
+                  <span className="text-[#a3a3a3] ml-2">Para proponer desafíos técnicos o creativos</span>
+                </div>
+              </div>
+              <p className="text-xs text-[#737373] mt-4 leading-relaxed">
+                Ejemplo: <span className="font-mono text-[#a3a3a3]">IDEA: Una aplicación para gestionar mis tareas diarias</span>
               </p>
             </div>
           </div>
@@ -168,6 +187,7 @@ export default async function Home() {
               {preparedProjects.length > 0 && (
                 <div className="pt-4">
                   <h2 className="text-sm font-medium text-[#a3a3a3] mb-6 tracking-wide uppercase flex items-center gap-2">
+                    <PreparedIcon />
                     Preparados
                   </h2>
                   <div className="space-y-6">

@@ -3,11 +3,21 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { LogoutIcon } from './LogoutIcon';
 
 export function AuthButton() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Debug: Log session status
+  if (typeof window !== 'undefined') {
+    console.log('🔐 Auth Status:', status);
+    console.log('👤 Session:', session ? {
+      user: session.user?.name || session.user?.email,
+      id: session.user?.id,
+    } : 'No session');
+  }
 
   const handleSignIn = async () => {
     setIsLoading(true);
@@ -37,22 +47,20 @@ export function AuthButton() {
   }
 
   if (session?.user) {
+    const userName = session.user.name || session.user.email || 'Usuario';
+    
     return (
       <div className="flex items-center gap-3">
-        {session.user.image && (
-          <Image
-            src={session.user.image}
-            alt={session.user.name || 'Usuario'}
-            width={24}
-            height={24}
-            className="rounded-full"
-          />
-        )}
+        <span className="text-sm text-[#a3a3a3]">
+          Hola, <span className="text-[#e5e5e5]">{userName}</span>
+        </span>
         <button
           onClick={() => signOut({ callbackUrl: '/' })}
-          className="text-xs font-medium px-3 py-1.5 border border-[#262626] rounded text-[#a3a3a3] hover:border-[#404040] hover:text-[#e5e5e5] transition-colors"
+          className="p-1.5 hover:opacity-70 transition-opacity"
+          aria-label="Cerrar sesión"
+          title="Cerrar sesión"
         >
-          Cerrar sesión
+          <LogoutIcon />
         </button>
       </div>
     );

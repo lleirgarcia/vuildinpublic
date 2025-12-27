@@ -23,9 +23,11 @@ Este proyecto utiliza NextAuth.js para autenticación con Google OAuth.
    - **Authorized JavaScript origins**:
      - `http://localhost:3000` (para desarrollo)
      - `https://tudominio.com` (para producción)
-   - **Authorized redirect URIs**:
+   - **Authorized redirect URIs** (IMPORTANTE: debe ser el URI completo):
      - `http://localhost:3000/api/auth/callback/google` (para desarrollo)
      - `https://tudominio.com/api/auth/callback/google` (para producción)
+   
+   ⚠️ **NOTA CRÍTICA:** El redirect URI debe ser **exactamente** `/api/auth/callback/google`, no solo la raíz del dominio.
 
 ### 3. Obtener las credenciales
 
