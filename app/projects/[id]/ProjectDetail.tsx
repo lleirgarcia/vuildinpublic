@@ -12,10 +12,19 @@ interface MiniSpec {
   fueraDeAlcance: string[];
 }
 
+interface Estado {
+  id: string;
+  name: string;
+  label: string;
+  color: string;
+  bgColor: string;
+  borderColor: string;
+}
+
 interface Project {
   id: string;
   number: number;
-  status: string;
+  estado: Estado;
   title: string;
   changelog: string | null;
   spec: string | MiniSpec;
@@ -48,12 +57,7 @@ export function ProjectDetail({ project }: { project: Project }) {
   }
 
   const cardRef = useRef<HTMLDivElement>(null);
-  const status = (project.status === 'brainstorming' || 
-                  project.status === 'in progress' || 
-                  project.status === 'testing' || 
-                  project.status === 'shipped')
-    ? project.status
-    : 'brainstorming';
+  const estado = project.estado;
 
   // Parsear spec de forma segura
   let spec: MiniSpec;
@@ -82,7 +86,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
 Propuesto por @${project.comment.tiktokHandle}
 
-Estado: ${status}`;
+Estado: ${estado.label}`;
 
     await navigator.clipboard.writeText(text);
   }
@@ -116,14 +120,14 @@ Estado: ${status}`;
         </Link>
         <div className="flex items-center gap-3 mb-4">
           <span className="text-sm font-medium text-[#737373]">#{project.number}</span>
-          <span className={`text-xs font-medium px-2 py-0.5 border rounded ${
-            status === 'shipped'
-              ? 'text-[#737373] border-[#262626]'
-              : status === 'in progress' || status === 'testing'
-              ? 'text-[#a3a3a3] border-[#262626]'
-              : 'text-[#404040] border-[#1a1a1a]'
-          }`}>
-            {statusLabels[status] || status}
+          <span 
+            className="text-xs font-medium px-2 py-0.5 border rounded"
+            style={{
+              color: estado.color,
+              borderColor: estado.borderColor,
+            }}
+          >
+            {estado.label}
           </span>
         </div>
         <h1 className="text-2xl font-medium text-[#e5e5e5] mb-3">
@@ -207,14 +211,14 @@ Estado: ${status}`;
               <div className="text-base mb-4 text-[#737373]">
                 Propuesto por <span className="font-medium text-[#a3a3a3]">@{project.comment.tiktokHandle}</span>
               </div>
-              <div className={`inline-block px-4 py-1.5 rounded text-sm font-medium mb-6 ${
-                status === 'shipped'
-                  ? 'text-[#737373] border border-[#262626]'
-                  : status === 'in progress' || status === 'testing'
-                  ? 'text-[#a3a3a3] border border-[#262626]'
-                  : 'text-[#404040] border border-[#1a1a1a]'
-              }`}>
-                {statusLabels[status] || status}
+              <div 
+                className="inline-block px-4 py-1.5 rounded text-sm font-medium mb-6 border"
+                style={{
+                  color: estado.color,
+                  borderColor: estado.borderColor,
+                }}
+              >
+                {estado.label}
               </div>
               <div className="text-base text-[#404040] italic">
                 Mañana elegimos el siguiente.

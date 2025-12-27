@@ -8,6 +8,7 @@ async function getProject(id: string) {
   let project = await prisma.project.findUnique({
     where: { id },
     include: {
+      estado: true,
       comment: true,
       videos: {
         orderBy: { createdAt: 'desc' },
@@ -20,6 +21,7 @@ async function getProject(id: string) {
     project = await prisma.project.findUnique({
       where: { commentId: id },
       include: {
+        estado: true,
         comment: true,
         videos: {
           orderBy: { createdAt: 'desc' },

@@ -9,7 +9,9 @@ export async function GET(request: NextRequest) {
 
     const where: any = {};
     if (status) {
-      where.status = status;
+      where.estado = {
+        name: status,
+      };
     }
 
     const projects = await prisma.project.findMany({
@@ -17,6 +19,7 @@ export async function GET(request: NextRequest) {
       orderBy: { number: 'desc' },
       take: limit,
       include: {
+        estado: true,
         comment: {
           select: {
             id: true,
@@ -33,7 +36,7 @@ export async function GET(request: NextRequest) {
         id: p.id,
         number: p.number,
         title: p.title,
-        status: p.status,
+        estado: p.estado,
         createdAt: p.createdAt,
         comment: p.comment,
       })),

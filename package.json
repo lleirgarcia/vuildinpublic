@@ -14,10 +14,12 @@
     "db:clear-votes": "tsx prisma/clear-votes.ts",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "docker:logs": "docker-compose logs -f postgres"
+    "docker:logs": "docker-compose logs -f postgres",
+    "upload": "node upload.js",
+    "up": "node upload.js"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.1",
+    "@prisma/client": "^5.22.0",
     "html-to-image": "^1.11.11",
     "next": "14.0.4",
     "react": "^18.2.0",

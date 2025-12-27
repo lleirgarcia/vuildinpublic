@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { SocialStats } from "@/components/SocialStats";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,13 +38,17 @@ export default function RootLayout({
                 <Link href="/" className="text-sm text-[#a3a3a3] hover:text-[#e5e5e5] transition-colors">
                   Home
                 </Link>
-                <Link href="/inbox" className="text-sm text-[#a3a3a3] hover:text-[#e5e5e5] transition-colors">
-                  Inbox
+                <Link href="/board" className="text-sm text-[#a3a3a3] hover:text-[#e5e5e5] transition-colors">
+                  Board
+                </Link>
+                <Link href="/interacciones" className="text-sm text-[#a3a3a3] hover:text-[#e5e5e5] transition-colors">
+                  Interacciones
                 </Link>
               </nav>
             </div>
           </div>
         </header>
+        <SocialStats />
         <main className="min-h-screen bg-black">
           {children}
         </main>

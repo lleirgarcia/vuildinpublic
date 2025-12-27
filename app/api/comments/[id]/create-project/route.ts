@@ -40,13 +40,22 @@ export async function POST(
       ? comment.commentText.substring(0, 60) + '...'
       : comment.commentText;
 
+    // Obtener el estado por defecto (brainstorming)
+    const defaultEstado = await prisma.estado.findUnique({
+      where: { name: 'brainstorming' },
+    });
+
+    if (!defaultEstado) {
+      return NextResponse.json({ error: 'Estado por defecto no encontrado' }, { status: 500 });
+    }
+
     const project = await prisma.project.create({
       data: {
         number: nextNumber,
         title,
         commentId: id,
         spec: comment.spec,
-        status: 'brainstorming',
+        estadoId: defaultEstado.id,
       },
     });
 

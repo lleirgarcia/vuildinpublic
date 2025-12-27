@@ -2,11 +2,20 @@
 
 import Link from 'next/link';
 
+interface Estado {
+  id: string;
+  name: string;
+  label: string;
+  color: string;
+  bgColor: string;
+  borderColor: string;
+}
+
 interface ProjectCardProps {
   id: string;
   title: string;
   tiktokHandle: string;
-  status?: string;
+  estado?: Estado;
   showStatus?: boolean;
   showVoteButton?: boolean;
   voteCount?: number;
@@ -15,18 +24,11 @@ interface ProjectCardProps {
   href?: string;
 }
 
-const statusLabels: Record<string, string> = {
-  brainstorming: 'Brainstorming',
-  'in progress': 'In Progress',
-  testing: 'Testing',
-  shipped: 'Shipped',
-};
-
 export function ProjectCard({
   id,
   title,
   tiktokHandle,
-  status,
+  estado,
   showStatus = false,
   showVoteButton = false,
   voteCount,
@@ -40,9 +42,15 @@ export function ProjectCard({
         <p className="text-lg font-medium text-[#e5e5e5] group-hover:text-white transition-colors">
           {title}
         </p>
-        {showStatus && status && (
-          <span className="text-xs font-medium text-[#737373] px-2 py-0.5 border border-[#262626] rounded">
-            {statusLabels[status] || status}
+        {showStatus && estado && (
+          <span 
+            className="text-xs font-medium px-2 py-0.5 border rounded"
+            style={{
+              color: estado.color,
+              borderColor: estado.borderColor,
+            }}
+          >
+            {estado.label}
           </span>
         )}
       </div>
@@ -60,13 +68,13 @@ export function ProjectCard({
               onVote?.();
             }}
             disabled={isVoting}
-            className={`text-xs font-medium px-2 py-1 border rounded transition-colors ${
+            className={`text-xs font-medium px-3 py-1 border rounded transition-colors min-w-[80px] text-center ${
               isVoting
-                ? 'text-[#737373] border-[#262626] cursor-wait'
+                ? 'text-[#737373] border-[#262626] cursor-wait opacity-50'
                 : 'text-[#a3a3a3] border-[#262626] hover:border-[#404040] hover:text-[#e5e5e5]'
             }`}
           >
-            {isVoting ? 'Votando...' : 'Votar'}
+            Votar
           </button>
         </div>
       )}

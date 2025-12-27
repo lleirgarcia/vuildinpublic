@@ -12,6 +12,7 @@ export async function GET(
     let project = await prisma.project.findUnique({
       where: { id },
       include: {
+        estado: true,
         comment: {
           select: {
             id: true,
@@ -38,6 +39,7 @@ export async function GET(
       project = await prisma.project.findUnique({
         where: { commentId: id },
         include: {
+          estado: true,
           comment: {
             select: {
               id: true,
@@ -84,7 +86,7 @@ export async function GET(
       id: project.id,
       number: project.number,
       title: project.title,
-      status: project.status,
+      estado: project.estado,
       createdAt: project.createdAt,
       changelog: project.changelog,
       spec,
@@ -107,13 +109,26 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { changelog, status } = body;
+    const { changelog, estadoId } = body;
+
+    // Si se proporciona estadoId, buscar el estado por nombre o usar el ID directamente
+    let estadoIdToUse = estadoId;
+    if (!estadoIdToUse) {
+      // Si no se proporciona, usar el estado por defecto (brainstorming)
+      const defaultEstado = await prisma.estado.findUnique({
+        where: { name: 'brainstorming' },
+      });
+      estadoIdToUse = defaultEstado?.id;
+    }
 
     const project = await prisma.project.update({
       where: { id },
       data: {
         changelog: changelog || null,
-        status: status || 'brainstorming',
+        estadoId: estadoIdToUse || undefined,
+      },
+      include: {
+        estado: true,
       },
     });
 

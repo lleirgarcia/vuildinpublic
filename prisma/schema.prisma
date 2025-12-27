@@ -45,11 +45,23 @@ model Comment {
   poll            Poll?
 }
 
+model Estado {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  name        String   @unique // brainstorming, in progress, testing, shipped
+  label       String   // Etiqueta para mostrar (Brainstorming, In Progress, etc.)
+  color       String   // Color en formato hex para el texto
+  bgColor     String   // Color de fondo en formato hex
+  borderColor String   // Color del borde en formato hex
+  projects    Project[]
+}
+
 model Project {
   id          String   @id @default(cuid())
   number      Int      @unique
   createdAt   DateTime @default(now())
-  status      String   @default("brainstorming") // brainstorming, in progress, testing, shipped
+  estadoId    String
+  estado      Estado   @relation(fields: [estadoId], references: [id], onDelete: Restrict)
   title       String
   commentId  String    @unique
   comment     Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
@@ -104,5 +116,15 @@ model Video {
   title       String
   url         String
   description String?
+}
+
+model SocialStat {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  totalFollowers Int     @default(0)
+  monthlyGrowth  Float   @default(0) // Porcentaje de crecimiento mensual
+  weeklyGrowth   Float   @default(0) // Porcentaje de crecimiento semanal
+  startDate      DateTime // Fecha de inicio para calcular días transcurridos
 }
 
