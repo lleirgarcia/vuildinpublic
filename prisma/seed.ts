@@ -63,6 +63,17 @@ async function main() {
     },
   });
 
+  // @ts-expect-error - estado existe en Prisma Client pero TypeScript no lo reconoce aún
+  const estadoPrepared = await prisma.estado.create({
+    data: {
+      name: 'prepared',
+      label: 'Preparados',
+      color: '#60a5fa', // Azul para proyectos preparados/aceptados
+      bgColor: '#0a0a0a',
+      borderColor: '#3b82f6', // Azul más intenso para el borde
+    },
+  });
+
   // Crear estadísticas sociales
   // @ts-expect-error - socialStat existe en Prisma Client pero TypeScript no lo reconoce aún
   await prisma.socialStat.create({
@@ -219,6 +230,73 @@ async function main() {
       commentId: comment2.id,
       spec: comment2.spec!,
       changelog: '🚧 En desarrollo:\n- Configuración de WebSockets\n- Componente de notificaciones\n- Integración con backend'
+    }
+  });
+
+  // Crear proyectos preparados (votados y aceptados)
+  const commentPrepared1 = await prisma.comment.create({
+    data: {
+      tiktokHandle: 'fullstackdev',
+      commentText: 'Me encantaría ver un sistema de búsqueda avanzada con filtros',
+      isCandidateToday: false,
+      spec: JSON.stringify({
+        objetivo: 'Implementar un sistema de búsqueda avanzada con múltiples filtros para mejorar la experiencia del usuario',
+        alcance: 'Componente de búsqueda con filtros por categoría, fecha, estado y usuario',
+        criteriosAceptacion: [
+          'Los filtros funcionan correctamente en combinación',
+          'La búsqueda es rápida y responsive',
+          'Los resultados se actualizan en tiempo real'
+        ],
+        fueraDeAlcance: [
+          'Búsqueda semántica con IA',
+          'Historial de búsquedas'
+        ]
+      })
+    }
+  });
+
+  const commentPrepared2 = await prisma.comment.create({
+    data: {
+      tiktokHandle: 'techinnovator',
+      commentText: 'Sería increíble tener integración con GitHub',
+      isCandidateToday: false,
+      spec: JSON.stringify({
+        objetivo: 'Integrar la plataforma con GitHub para sincronizar proyectos y commits',
+        alcance: 'API de GitHub, autenticación OAuth, sincronización básica de repositorios',
+        criteriosAceptacion: [
+          'La autenticación con GitHub funciona correctamente',
+          'Los repositorios se sincronizan automáticamente',
+          'Los commits aparecen en el timeline del proyecto'
+        ],
+        fueraDeAlcance: [
+          'Sincronización bidireccional completa',
+          'Gestión de issues y PRs'
+        ]
+      })
+    }
+  });
+
+  const project3 = await prisma.project.create({
+    data: {
+      number: 3,
+      title: 'Sistema de búsqueda avanzada con filtros',
+      // @ts-expect-error - estadoId existe en el schema pero TypeScript no lo reconoce aún
+      estadoId: estadoPrepared.id,
+      commentId: commentPrepared1.id,
+      spec: commentPrepared1.spec!,
+      changelog: '✅ Aceptado y preparado para desarrollo\n✅ Especificaciones completas\n✅ Listo para comenzar'
+    }
+  });
+
+  const project4 = await prisma.project.create({
+    data: {
+      number: 4,
+      title: 'Integración con GitHub',
+      // @ts-expect-error - estadoId existe en el schema pero TypeScript no lo reconoce aún
+      estadoId: estadoPrepared.id,
+      commentId: commentPrepared2.id,
+      spec: commentPrepared2.spec!,
+      changelog: '✅ Aceptado y preparado para desarrollo\n✅ Especificaciones completas\n✅ Listo para comenzar'
     }
   });
 

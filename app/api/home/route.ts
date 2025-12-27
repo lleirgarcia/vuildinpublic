@@ -7,6 +7,7 @@ export async function GET() {
     const projects = await prisma.project.findMany({
       orderBy: { number: 'desc' },
       include: {
+        estado: true,
         comment: {
           select: {
             tiktokHandle: true,
@@ -19,25 +20,35 @@ export async function GET() {
     // Separar proyectos por estado
     const buildingProjects = projects
       .filter(p => 
-        p.status === 'brainstorming' || 
-        p.status === 'in progress' || 
-        p.status === 'testing'
+        p.estado.name === 'brainstorming' || 
+        p.estado.name === 'in progress' || 
+        p.estado.name === 'testing'
       )
       .map(p => ({
         id: p.id,
         number: p.number,
         title: p.title,
-        status: p.status,
+        estado: p.estado,
         comment: p.comment,
       }));
 
     const shippedProjects = projects
-      .filter(p => p.status === 'shipped')
+      .filter(p => p.estado.name === 'shipped')
       .map(p => ({
         id: p.id,
         number: p.number,
         title: p.title,
-        status: p.status,
+        estado: p.estado,
+        comment: p.comment,
+      }));
+
+    const preparedProjects = projects
+      .filter(p => p.estado.name === 'prepared')
+      .map(p => ({
+        id: p.id,
+        number: p.number,
+        title: p.title,
+        estado: p.estado,
         comment: p.comment,
       }));
 
@@ -94,6 +105,7 @@ export async function GET() {
     return NextResponse.json({
       buildingProjects,
       shippedProjects,
+      preparedProjects,
       topUsers,
       polls: pollsWithVoteCount,
     });

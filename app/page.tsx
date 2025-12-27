@@ -84,6 +84,7 @@ export default async function Home() {
     (p as any).estado.name === 'in progress' || 
     (p as any).estado.name === 'testing'
   );
+  const preparedProjects = projects.filter((p: ProjectWithEstado) => (p as any).estado.name === 'prepared');
   const shippedProjects = projects.filter((p: ProjectWithEstado) => (p as any).estado.name === 'shipped');
 
   return (
@@ -163,7 +164,32 @@ export default async function Home() {
                 </div>
               )}
 
-          {/* Votar proyecto - mismo ancho que En construcción */}
+          {/* 2. Proyectos preparados */}
+              {preparedProjects.length > 0 && (
+                <div className="pt-4">
+                  <h2 className="text-sm font-medium text-[#a3a3a3] mb-6 tracking-wide uppercase flex items-center gap-2">
+                    Preparados
+                  </h2>
+                  <div className="space-y-6">
+                    {preparedProjects.map((project) => {
+                      const projectWithRelations = project as any;
+                      return (
+                        <ProjectCard
+                          key={project.id}
+                          id={project.id}
+                          title={project.title}
+                          tiktokHandle={projectWithRelations.comment.tiktokHandle}
+                          estado={projectWithRelations.estado}
+                          showStatus={true}
+                          href={`/projects/${project.id}`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+          {/* 3. Votar proyecto - mismo ancho que En construcción */}
           <div className="pt-4">
             <PollSection polls={polls} />
           </div>

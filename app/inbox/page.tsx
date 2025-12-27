@@ -2,10 +2,20 @@ import { prisma } from '@/lib/prisma';
 import { InboxForm } from './InboxForm';
 import { CommentActions } from './CommentActions';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getComments() {
-  return await prisma.comment.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    const comments = await prisma.comment.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    console.log(`[InboxPage] Found ${comments.length} comments`);
+    return comments;
+  } catch (error) {
+    console.error('[InboxPage] Error fetching comments:', error);
+    return [];
+  }
 }
 
 export default async function InboxPage() {
