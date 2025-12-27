@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: laboratorio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: laboratorio
+      POSTGRES_PASSWORD: laboratorio_dev
+      POSTGRES_DB: laboratorio
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U laboratorio"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+

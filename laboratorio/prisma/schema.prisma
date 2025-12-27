@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  email       String?  @unique
+  username    String?  @unique
+  name        String?
+  avatar      String?
+  bio         String?
+  tiktokHandle String? // Handle de TikTok asociado
+  youtubeHandle String? // Handle de YouTube asociado
+  instagramHandle String? // Handle de Instagram asociado
+  
+  // Relaciones
+  comments    Comment[]
+  messages    Message[]
+  votes       Vote[]
+}
+
+model Comment {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  tiktokHandle    String
+  commentText     String
+  videoUrl        String?
+  isCandidateToday Boolean @default(false)
+  spec            String?  // JSON string del mini spec generado
+  userId          String?  // Usuario asociado (opcional)
+  
+  // Relaciones
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  project         Project?
+  poll            Poll?
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  number      Int      @unique
+  createdAt   DateTime @default(now())
+  status      String   @default("brainstorming") // brainstorming, in progress, testing, shipped
+  title       String
+  commentId  String    @unique
+  comment     Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  changelog   String?
+  spec        String   // JSON string del spec congelado
+  messages    Message[] // Mensajes/comentarios sobre este proyecto
+  videos      Video[]  // Videos relacionados con el proyecto
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tiktokHandle String
+  messageText String
+  likes       Int      @default(0) // Para tracking de interacciones
+  userId      String?  // Usuario asociado (opcional)
+  
+  // Relaciones
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Poll {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  title       String
+  description String?
+  commentId   String   @unique
+  comment     Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  votes       Vote[]
+  isActive    Boolean  @default(true)
+}
+
+model Vote {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  pollId      String
+  poll        Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  tiktokHandle String
+  userId      String?  // Usuario asociado (opcional)
+  
+  // Relaciones
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  url         String
+  description String?
+}
+
